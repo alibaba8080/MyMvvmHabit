@@ -14,6 +14,13 @@ import me.goldze.mvvmhabit.base.BaseFragment;
  */
 
 public class TabBar3Fragment extends BaseFragment {
+
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
     @Override
     public int initContentView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return R.layout.fragment_tab_bar_3;
@@ -24,4 +31,8 @@ public class TabBar3Fragment extends BaseFragment {
         return BR.viewModel;
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
 }

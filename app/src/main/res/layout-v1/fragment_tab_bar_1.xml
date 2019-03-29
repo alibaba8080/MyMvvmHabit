@@ -1,30 +1,123 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:binding="http://schemas.android.com/tools">
 
     <data>
 
-        <import type="habit.mvvm.pst.ui.indextab_bar.vm.TabBar1ViewModel" />
+        <import type="habit.mvvm.pst.ui.indextab_bar.viewmodel.TabBar1ViewModel" />
 
         <variable
             name="viewModel"
-            type="habit.mvvm.pst.ui.indextab_bar.vm.TabBar1ViewModel" />
+            type="habit.mvvm.pst.ui.indextab_bar.viewmodel.TabBar1ViewModel" />
 
     </data>
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:binding="http://schemas.android.com/apk/res-auto"
+
+    <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/cl_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="top|left"
-        android:orientation="vertical">
-        <include
-            android:id="@+id/include"
-            layout="@layout/layout_toolbar"
-            binding:toolbarViewModel="@{viewModel}" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="TabBar_1" />
+        android:background="#fefefe"
+        android:fitsSystemWindows="true">
 
-    </LinearLayout>
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/main_appbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#f0f0f0"
+            android:elevation="0dp"
+            android:fitsSystemWindows="true"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:elevation="0dp"
+            app:layout_behavior="habit.mvvm.pst.app.behavior.FlingBehavior"
+            app:theme="@style/AppBar">
+
+            <android.support.design.widget.CollapsingToolbarLayout
+                android:id="@+id/main_collapsing"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#f0f0f0"
+                android:fitsSystemWindows="true"
+                app:contentScrim="?attr/colorPrimary"
+                app:expandedTitleMarginEnd="64dp"
+                app:expandedTitleMarginStart="48dp"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+                <RelativeLayout
+                    android:id="@+id/rl_top"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#fefefe"
+                    app:layout_collapseMode="pin">
+                    <ImageView
+                        android:id="@+id/white"
+                        android:layout_width="match_parent"
+                        android:layout_height="44dp" />
+                    <ImageView
+                        android:id="@+id/iv_avatar_cover"
+                        android:layout_below="@+id/white"
+                        android:layout_width="match_parent"
+                        android:layout_height="300dp"
+                        android:contentDescription="@null"
+                        android:background="@drawable/material_flat" />
+
+                    <ImageView
+                        android:id="@+id/iv_avatar_cover1"
+                        android:layout_below="@+id/iv_avatar_cover"
+                        android:layout_width="match_parent"
+                        android:layout_height="300dp"
+                        android:contentDescription="@null"
+                        android:background="@drawable/material_flat" />
+                </RelativeLayout>
+
+
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/main_toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:contentInsetLeft="0dp"
+                    android:contentInsetStart="0dp"
+                    android:visibility="visible"
+                    app:contentInsetLeft="0dp"
+                    app:contentInsetStart="0dp"
+                    app:layout_collapseMode="pin">
+
+                    <include
+                        android:id="@+id/include"
+                        layout="@layout/layout_toolbar"
+                        binding:toolbarViewModel="@{viewModel}" />
+                </android.support.v7.widget.Toolbar>
+
+            </android.support.design.widget.CollapsingToolbarLayout>
+
+
+            <android.support.design.widget.TabLayout
+                android:id="@+id/tabs"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:layout_gravity="center"
+                app:tabIndicatorColor="@color/colorPrimary"
+                app:tabSelectedTextColor="@color/colorPrimary"
+                app:tabTextColor="@android:color/black" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="-1dp"
+                android:background="#20000000" />
+
+        </android.support.design.widget.AppBarLayout>
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewPager"
+            binding:adapter="@{viewModel.adapter}"
+            binding:itemBinding="@{viewModel.itemBinding}"
+            binding:items="@{viewModel.items}"
+            binding:onPageSelectedCommand="@{viewModel.onPageSelectedCommand}"
+            binding:pageTitles="@{viewModel.pageTitles}"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+    </android.support.design.widget.CoordinatorLayout>
+
 </layout>

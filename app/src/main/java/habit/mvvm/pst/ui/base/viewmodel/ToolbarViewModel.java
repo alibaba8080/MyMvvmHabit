@@ -27,6 +27,8 @@ public class ToolbarViewModel extends BaseViewModel {
     //右边文字
     public ObservableField<String> rightText = new ObservableField<>("更多");
     //右边文字的观察者
+    public ObservableInt leftIconVisibleObservable = new ObservableInt(View.GONE);
+    //右边文字的观察者
     public ObservableInt rightTextVisibleObservable = new ObservableInt(View.GONE);
     //右边图标的观察者
     public ObservableInt rightIconVisibleObservable = new ObservableInt(View.GONE);
@@ -37,7 +39,7 @@ public class ToolbarViewModel extends BaseViewModel {
     public ToolbarViewModel(@NonNull Application application) {
         super(application);
         this.application=application;
-        rightIcon.set(application.getDrawable(R.mipmap.btn_icon_scan));
+//        rightIcon.set(application.getDrawable(R.mipmap.toolbar_more));
     }
 
     /**
@@ -48,6 +50,9 @@ public class ToolbarViewModel extends BaseViewModel {
     public void setTitleText(String text) {
         titleText.set(text);
     }
+
+
+
 
     /**
      * 设置右边文字
@@ -69,13 +74,21 @@ public class ToolbarViewModel extends BaseViewModel {
     }
 
     /**
+     * 设置右边文字的显示和隐藏
+     *
+     * @param visibility
+     */
+    public void setLeftIcon(int visibility) {
+        leftIconVisibleObservable.set(visibility);
+    }
+    /**
      * 设置右边图标
      *
      * @param visibility
      */
     @SuppressLint("NewApi")
     public void setRightIcon(int id) {
-        rightTextVisibleObservable.set(View.VISIBLE);
+        rightIconVisibleObservable.set(View.VISIBLE);
         rightIcon.set(application.getDrawable(id));
     }
 

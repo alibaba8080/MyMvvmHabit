@@ -57,6 +57,13 @@ public class TabBarActivity extends BaseActivity<ActivityTabBarBinding, BaseView
         //默认选中第一个
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.add(R.id.frameLayout, mFragments.get(0));
+        transaction.add(R.id.frameLayout, mFragments.get(1));
+        transaction.add(R.id.frameLayout, mFragments.get(2));
+        transaction.add(R.id.frameLayout, mFragments.get(3));
+
+        transaction.hide(mFragments.get(1));
+        transaction.hide(mFragments.get(2));
+        transaction.hide(mFragments.get(3));
         transaction.commitAllowingStateLoss();
     }
 
@@ -72,14 +79,24 @@ public class TabBarActivity extends BaseActivity<ActivityTabBarBinding, BaseView
         navigationController.addTabItemSelectedListener(new OnTabItemSelectedListener() {
             @Override
             public void onSelected(int index, int old) {
-                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.frameLayout, mFragments.get(index));
-                transaction.commitAllowingStateLoss();
+               swithFragment(index);
             }
 
             @Override
             public void onRepeat(int index) {
             }
         });
+    }
+
+    private void swithFragment(int id) {
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        for (int k = 0; k < mFragments.size(); k++) {
+            if (k == id) {
+                transaction.show(mFragments.get(id));
+            } else {
+                transaction.hide(mFragments.get(k));
+            }
+        }
+        transaction.commitAllowingStateLoss();
     }
 }
